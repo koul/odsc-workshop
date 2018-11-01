@@ -3,7 +3,7 @@
 //  MacCameraApp
 //
 //  Created by Meher Kasam on 10/28/18.
-//  Copyright © 2018 Conference. All rights reserved.
+//  Copyright © 2018 Meher Kasam. All rights reserved.
 //
 
 import Cocoa
@@ -12,7 +12,6 @@ import CoreML
 import Vision
 
 class ViewController: NSViewController, CameraFrameDelegate {
-    
     @IBOutlet weak var cameraView: NSImageView!
     @IBOutlet weak var cameraInaccessibleLabel: NSTextField!
     @IBOutlet weak var predictionsLabel: NSTextField!
@@ -22,15 +21,15 @@ class ViewController: NSViewController, CameraFrameDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.cameraView.layer?.backgroundColor = CGColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
-        self.cameraHelper = CameraHelper(.back)
-        
-        // if camera helper returned nil, we could not get access to the camera
-        // so display a message about it
-        self.cameraInaccessibleLabel.isHidden = (self.cameraHelper != nil)
+        self.cameraHelper = CameraHelper()
         self.cameraHelper?.delegate = self
+    }
+    
+    func cameraAuthorizationStatusChanged(status: Bool) {
+        DispatchQueue.main.async {
+            self.cameraInaccessibleLabel.isHidden = status
+        }
     }
     
     func frameCaptured(_ frame: NSImage) {
@@ -81,7 +80,5 @@ class ViewController: NSViewController, CameraFrameDelegate {
         DispatchQueue.main.async {
             self.predictionsLabel.stringValue = String(format: "Predictions in %.0f ms:\n%@", executionTime * 1000, string)
         }
-        
-        print("\(Int(executionTime * 1000))")
     }
 }
