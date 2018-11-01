@@ -46,7 +46,6 @@ class CameraHelper: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
                 break
             }
         } else {
-            
             self.delegate?.cameraAuthorizationStatusChanged(status: true)
             self.startCapture()
         }
