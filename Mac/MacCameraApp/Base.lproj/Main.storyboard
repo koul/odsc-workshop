@@ -723,7 +723,7 @@
                             </imageView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="z7P-bC-eWa">
                                 <rect key="frame" x="8" y="54" width="464" height="17"/>
-                                <textFieldCell key="cell" lineBreakMode="clipping" title="Label" id="k7c-PH-Z4U">
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Predictions" id="k7c-PH-Z4U">
                                     <font key="font" metaFont="system"/>
                                     <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
