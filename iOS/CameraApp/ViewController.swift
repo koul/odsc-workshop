@@ -16,8 +16,12 @@ class ViewController: UIViewController, CameraFrameDelegate {
     @IBOutlet weak var cameraInaccessibleLabel: UILabel!
     @IBOutlet weak var predictionsLabel: UILabel!
     private var cameraHelper: CameraHelper?
-    private let model: MLModel = MobileNet().model
     private var lastFrameProcessed = Date()
+    
+    // ---- modify here
+    private let model: MLModel = MobileNet().model
+    private let timeIntervalInMilliseconds: Double = 50
+    // ---- modify here
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +43,7 @@ class ViewController: UIViewController, CameraFrameDelegate {
 
         let currentTime = Date()
 
-        if currentTime.timeIntervalSince(self.lastFrameProcessed) * 1000 < 32 {
+        if currentTime.timeIntervalSince(self.lastFrameProcessed) * 1000 < self.timeIntervalInMilliseconds {
             //return
         }
 
