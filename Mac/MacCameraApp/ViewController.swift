@@ -16,8 +16,12 @@ class ViewController: NSViewController, CameraFrameDelegate {
     @IBOutlet weak var cameraInaccessibleLabel: NSTextField!
     @IBOutlet weak var predictionsLabel: NSTextField!
     private var cameraHelper: CameraHelper?
-    private let model: MLModel = MobileNet().model
     private var lastFrameProcessed = Date()
+    
+    // ---- modify here
+    private let model: MLModel = MobileNet().model
+    private let timeIntervalInMilliseconds: Double = 50
+    // ---- modify here
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +43,7 @@ class ViewController: NSViewController, CameraFrameDelegate {
         
         let currentTime = Date()
         
-        if currentTime.timeIntervalSince(self.lastFrameProcessed) * 1000 < 32 {
+        if currentTime.timeIntervalSince(self.lastFrameProcessed) * 1000 < self.timeIntervalInMilliseconds {
             //return
         }
         
@@ -71,7 +75,6 @@ class ViewController: NSViewController, CameraFrameDelegate {
         }
         
         guard let cgImage = frame.cgImage(forProposedRect: nil, context: nil, hints: nil) else { return }
-        
         let requestHandler = VNImageRequestHandler(cgImage: cgImage)
         try? requestHandler.perform([classificationRequest])
     }
